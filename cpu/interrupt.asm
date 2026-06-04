@@ -2,6 +2,8 @@
 
 global isr0
 [extern isr0_handler]
+global isr13
+[extern isr13_handler]
 global isr14
 [extern isr14_handler]
 global isr32
@@ -19,6 +21,12 @@ isr0:
     cli
     pusha
     call isr0_handler
+    jmp $
+
+isr13:
+    cli
+    pusha
+    call isr13_handler
     jmp $
 
 isr14:

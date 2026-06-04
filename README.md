@@ -33,7 +33,12 @@ This is a 32-bit x86 operating system kernel written in C and Assembly from scra
 
 ## Building and Running
 
-Dependencies: `nasm`, `gcc` (32-bit cross-compiler), `binutils`, `qemu-system-x86`.
+Dependencies: 
+`nasm`
+`gcc` (32-bit cross-compiler)
+`binutils`
+`qemu-system-x86`
+`qemu-audio-pa`
 
 ```bash
 make clean

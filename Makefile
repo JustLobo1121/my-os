@@ -12,7 +12,7 @@ kernel/kernel.bin: $(OBJ)
 	ld -m elf_i386 -T linker.ld -nostdlib --oformat binary $^ -o $@
 
 %.o: %.c
-	gcc -ffreestanding -m32 -fno-pie -I include -c $< -o $@
+	gcc -ffreestanding -m32 -fno-stack-protector -fno-pie -I include -c $< -o $@
 
 %.o: %.asm
 	nasm -f elf $< -o $@

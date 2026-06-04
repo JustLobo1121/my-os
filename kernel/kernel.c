@@ -6,6 +6,7 @@
 #include "task.h"
 #include "vga.h"
 #include "gdt.h"
+
 extern void init_mouse();
 
 void task_a() {
@@ -24,14 +25,29 @@ void task_b() {
 void main() {
     init_vga();
     clear_screen();
+
     init_gdt();
     isr_install();
+
     init_pmm();
     void* heap_start = pmm_alloc_frame();
     init_heap(heap_start, 4096);
+
+    unsigned int kernel_stack = (unsigned int)kmalloc(4096)+4096;
+    set_kernel_stack(kernel_stack);
+
     init_multitasking();
     init_timer(100);
     init_mouse();
+
     __asm__ volatile("sti");
+    switch_to_user_mode();
+    print("test 1: user mode");
     print("OS> ");
+
+    while (1)
+    {
+        continue;
+    }
+    
 }

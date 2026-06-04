@@ -29,5 +29,6 @@ typedef struct tss_entry_struct tss_entry_t;
 
 void init_gdt();
 void set_kernel_stack(unsigned int esp);
+void switch_to_user_mode();
 
 #endif

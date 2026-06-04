@@ -46,6 +46,7 @@ void cmd_rm();
 void cmd_run();
 void cmd_mkapp();
 void cmd_kmsg();
+void cmd_hack();
 
 typedef void (*command_func)();
 
@@ -81,7 +82,8 @@ command_t commands[] = {
 {"rm", cmd_rm, "delete a file or directory from the disk"},
 {"run", cmd_run, "execute a program"},
 {"mkapp", cmd_mkapp, "make a executeable progrma"},
-{"kmsg", cmd_kmsg, "show the event register and start of the kernel"}
+{"kmsg", cmd_kmsg, "show the event register and start of the kernel"},
+{"hack", cmd_hack, "pen-testing: try to shut down the interrupts(break the privileges)"}
 };
 #define NUM_SHELL_COMMAND (sizeof(commands) / sizeof(command_t))
 
@@ -271,6 +273,7 @@ void cmd_sleep() {
     print("stop getting any interrups\n");
     __asm__ volatile("cli; hlt");
 }
+
 void cmd_cpuinfo() {
     get_cpu_info();
 }
@@ -323,4 +326,9 @@ void cmd_mkapp() {
 }
 void cmd_kmsg() {
     dump_kernel_log();
+}
+void cmd_hack() {
+    print("trying to shut down the kernel (Command 'cli')...\n");
+    __asm__ volatile("cli");
+    print("the kernel is vulnerable.\n");
 }

@@ -10,6 +10,7 @@
 #define ICW4_8086 0x01
 
 extern void isr0();
+extern void isr13();
 extern void isr14();
 extern void isr32();
 extern void isr33();
@@ -53,6 +54,18 @@ void isr0_handler() {
     print("   the kernel has block the cpu to evade corruption of data.\n");
     print("   please, restar the virtual machine.\n");
 }
+
+void isr13_handler() {
+    current_color = 0x4f;
+    clear_screen();
+
+    print("\n\n ** KERNEL PANIC - SYSTEM STOPED ** \n\n");
+    print("   EXCEPTION 0x0D: general protection fault.\n");
+    print("   the user program(ring 3) try to run as root or touch forbidden memory.\n");
+    print("   the kernel has block the attack.\n");
+    print("   please, restar the virtual machine.\n");
+}
+
 void isr14_handler() {
     current_color = 0x4F;
     clear_screen();
@@ -69,6 +82,7 @@ void isr128_handler() {
 void isr_install() {
     pic_remap();
     set_idt_gate(0, (unsigned int)isr0);
+    set_idt_gate(13, (unsigned int)isr13);
     set_idt_gate(14, (unsigned int)isr14);
     set_idt_gate(32, (unsigned int)isr32);
     set_idt_gate(33, (unsigned int)isr33);
