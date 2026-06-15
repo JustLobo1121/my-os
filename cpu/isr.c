@@ -14,6 +14,7 @@ extern void isr13();
 extern void isr14();
 extern void isr32();
 extern void isr33();
+extern void isr43();
 extern void isr44();
 extern void isr46();
 extern void isr128();
@@ -86,6 +87,7 @@ void isr_install() {
     set_idt_gate(14, (unsigned int)isr14);
     set_idt_gate(32, (unsigned int)isr32);
     set_idt_gate(33, (unsigned int)isr33);
+    set_idt_gate(43, (unsigned int)isr43);
     set_idt_gate(44, (unsigned int)isr44);
     set_idt_gate(46, (unsigned int)isr46);
     set_idt_gate(128, (unsigned int)isr128);

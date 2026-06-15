@@ -18,6 +18,7 @@ extern void cat_file(char* filename);
 extern void change_directory(char* dirname);
 extern void remove_file(char* filename);
 extern void execute_program(char* filename);
+extern void init_E1000();
 void write_file(char* filename, char* content);
 
 void cmd_help();
@@ -47,6 +48,7 @@ void cmd_run();
 void cmd_mkapp();
 void cmd_kmsg();
 void cmd_hack();
+void cmd_initE1000();
 
 typedef void (*command_func)();
 
@@ -83,7 +85,8 @@ command_t commands[] = {
 {"run", cmd_run, "execute a program"},
 {"mkapp", cmd_mkapp, "make a executeable progrma"},
 {"kmsg", cmd_kmsg, "show the event register and start of the kernel"},
-{"hack", cmd_hack, "pen-testing: try to shut down the interrupts(break the privileges)"}
+{"hack", cmd_hack, "pen-testing: try to shut down the interrupts(break the privileges)"},
+{"netinit", cmd_initE1000, "wake the network card E1000"},
 };
 #define NUM_SHELL_COMMAND (sizeof(commands) / sizeof(command_t))
 
@@ -330,5 +333,7 @@ void cmd_kmsg() {
 void cmd_hack() {
     print("trying to shut down the kernel (Command 'cli')...\n");
     __asm__ volatile("cli");
-    print("the kernel is vulnerable.\n");
+}
+void cmd_initE1000() {
+    init_E1000();
 }

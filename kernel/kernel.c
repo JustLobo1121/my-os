@@ -42,7 +42,6 @@ void main() {
 
     __asm__ volatile("sti");
     switch_to_user_mode();
-    print("test 1: user mode");
     print("OS> ");
 
     while (1)
